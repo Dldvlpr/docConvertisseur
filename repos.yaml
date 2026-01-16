@@ -2,9 +2,9 @@ output_root: skills_corpus
 work_root: .work_repos
 
 defaults:
-  max_header_level: 4      # split sur #..####
-  min_chunk_chars: 400     # évite micro-chunks vides
-  max_chunk_chars: 12000   # évite chunks énormes (RAG-friendly)
+  max_header_level: 4
+  min_chunk_chars: 400
+  max_chunk_chars: 12000
   include_exts: [".md", ".mdx", ".rst", ".adoc", ".asciidoc", ".xml", ".tex", ".html", ".htm"]
   exclude_dirs:
     - ".git"
@@ -19,9 +19,20 @@ defaults:
     - "out"
     - ".idea"
     - ".vscode"
+    - "__pycache__"
+    - ".pytest_cache"
+    - "coverage"
+    - ".nyc_output"
+    - "eggs"
+    - "*.egg-info"
+    - ".tox"
+    - ".nox"
 
 repos:
-  # --- Language documentation ---
+  # ============================================================================
+  # LANGUAGES - Documentation officielle des langages
+  # ============================================================================
+
   - id: php-doc-en
     url: https://github.com/php/doc-en
     category: languages
@@ -72,7 +83,7 @@ repos:
     url: https://github.com/python/cpython
     category: languages
     tech: python
-    versions: ["3.9", "3.10", "3.11", "3.12"]
+    versions: ["3.9", "3.10", "3.11", "3.12", "3.13"]
     source: official
 
   - id: go
@@ -117,8 +128,22 @@ repos:
     versions: ["master"]
     source: official
 
+  - id: kotlin-web-site
+    url: https://github.com/JetBrains/kotlin-web-site
+    category: languages
+    tech: kotlin
+    versions: ["master"]
+    source: official
+
   - id: swift
     url: https://github.com/swiftlang/swift
+    category: languages
+    tech: swift
+    versions: ["main"]
+    source: official
+
+  - id: swift-book
+    url: https://github.com/apple/swift-book
     category: languages
     tech: swift
     versions: ["main"]
@@ -131,14 +156,52 @@ repos:
     versions: ["master"]
     source: official
 
-  - id: git
-    url: https://github.com/git/git
-    category: tools
-    tech: git
+  - id: elixir
+    url: https://github.com/elixir-lang/elixir
+    category: languages
+    tech: elixir
+    versions: ["main"]
+    source: official
+
+  - id: scala
+    url: https://github.com/scala/scala
+    category: languages
+    tech: scala
+    versions: ["2.13.x", "2.12.x"]
+    source: official
+
+  - id: scala3
+    url: https://github.com/scala/scala3
+    category: languages
+    tech: scala
+    versions: ["main"]
+    source: official
+
+  - id: clojure
+    url: https://github.com/clojure/clojure
+    category: languages
+    tech: clojure
     versions: ["master"]
     source: official
 
-  # --- Front‑end & framework documentation ---
+  - id: haskell-report
+    url: https://github.com/haskell/haskell-report
+    category: languages
+    tech: haskell
+    versions: ["master"]
+    source: official
+
+  - id: zig
+    url: https://github.com/ziglang/zig
+    category: languages
+    tech: zig
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # FRAMEWORKS BACKEND
+  # ============================================================================
+
   - id: symfony-docs
     url: https://github.com/symfony/symfony-docs
     category: frameworks
@@ -182,29 +245,233 @@ repos:
       - "8.1"
     source: official
 
+  - id: laravel-docs
+    url: https://github.com/laravel/docs
+    category: frameworks
+    tech: laravel
+    versions: ["12.x", "11.x", "10.x", "9.x", "master"]
+    source: official
+
+  - id: django
+    url: https://github.com/django/django
+    category: frameworks
+    tech: django
+    versions: ["main", "stable/5.1.x", "stable/5.0.x", "stable/4.2.x"]
+    source: official
+
+  - id: flask
+    url: https://github.com/pallets/flask
+    category: frameworks
+    tech: flask
+    versions: ["main"]
+    source: official
+
+  - id: fastapi
+    url: https://github.com/fastapi/fastapi
+    category: frameworks
+    tech: fastapi
+    versions: ["master"]
+    source: official
+
+  - id: spring-framework
+    url: https://github.com/spring-projects/spring-framework
+    category: frameworks
+    tech: spring
+    versions: ["main", "6.2.x", "6.1.x", "6.0.x"]
+    source: official
+
+  - id: spring-boot
+    url: https://github.com/spring-projects/spring-boot
+    category: frameworks
+    tech: spring-boot
+    versions: ["main", "3.4.x", "3.3.x", "3.2.x"]
+    source: official
+
+  - id: quarkus
+    url: https://github.com/quarkusio/quarkus
+    category: frameworks
+    tech: quarkus
+    versions: ["main"]
+    source: official
+
+  - id: micronaut-core
+    url: https://github.com/micronaut-projects/micronaut-core
+    category: frameworks
+    tech: micronaut
+    versions: ["4.7.x", "4.6.x"]
+    source: official
+
+  - id: rails
+    url: https://github.com/rails/rails
+    category: frameworks
+    tech: rails
+    versions: ["main", "7-2-stable", "7-1-stable", "7-0-stable"]
+    source: official
+
+  - id: rails-guides
+    url: https://github.com/rails/rails/tree/main/guides
+    category: frameworks
+    tech: rails
+    versions: ["main"]
+    source: official
+
+  - id: aspnet-docs
+    url: https://github.com/dotnet/AspNetCore.Docs
+    category: frameworks
+    tech: aspnet
+    versions: ["main"]
+    source: official
+
+  - id: aspnet-core
+    url: https://github.com/dotnet/aspnetcore
+    category: frameworks
+    tech: aspnet
+    versions: ["main"]
+    source: official
+
+  - id: nestjs-docs
+    url: https://github.com/nestjs/docs.nestjs.com
+    category: frameworks
+    tech: nestjs
+    versions: ["master"]
+    source: official
+
+  - id: expressjs
+    url: https://github.com/expressjs/expressjs.com
+    category: frameworks
+    tech: express
+    versions: ["gh-pages"]
+    source: official
+
+  - id: koa
+    url: https://github.com/koajs/koa
+    category: frameworks
+    tech: koa
+    versions: ["master"]
+    source: official
+
+  - id: hono
+    url: https://github.com/honojs/hono
+    category: frameworks
+    tech: hono
+    versions: ["main"]
+    source: official
+
+  - id: gin-gonic
+    url: https://github.com/gin-gonic/gin
+    category: frameworks
+    tech: gin
+    versions: ["master"]
+    source: official
+
+  - id: fiber
+    url: https://github.com/gofiber/fiber
+    category: frameworks
+    tech: fiber
+    versions: ["master"]
+    source: official
+
+  - id: echo
+    url: https://github.com/labstack/echo
+    category: frameworks
+    tech: echo
+    versions: ["master"]
+    source: official
+
+  - id: chi
+    url: https://github.com/go-chi/chi
+    category: frameworks
+    tech: chi
+    versions: ["master"]
+    source: official
+
+  - id: actix-web
+    url: https://github.com/actix/actix-web
+    category: frameworks
+    tech: actix
+    versions: ["master"]
+    source: official
+
+  - id: axum
+    url: https://github.com/tokio-rs/axum
+    category: frameworks
+    tech: axum
+    versions: ["main"]
+    source: official
+
+  - id: rocket
+    url: https://github.com/rwf2/Rocket
+    category: frameworks
+    tech: rocket
+    versions: ["master"]
+    source: official
+
+  - id: phoenix
+    url: https://github.com/phoenixframework/phoenix
+    category: frameworks
+    tech: phoenix
+    versions: ["main"]
+    source: official
+
+  - id: adonisjs
+    url: https://github.com/adonisjs/core
+    category: frameworks
+    tech: adonisjs
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # FRAMEWORKS FRONTEND
+  # ============================================================================
+
   - id: react-dev
     url: https://github.com/reactjs/react.dev
     category: frameworks
     tech: react
     versions:
       - "main"
-      - "react-18"
-      - "react-19"
-      - "4.x"
+    source: official
+
+  - id: react
+    url: https://github.com/facebook/react
+    category: frameworks
+    tech: react
+    versions: ["main"]
     source: official
 
   - id: vue-docs
     url: https://github.com/vuejs/docs
     category: frameworks
     tech: vue
-    versions: ["main", "master"]
+    versions: ["main"]
     source: official
 
-  - id: angular-docs
+  - id: vue-core
+    url: https://github.com/vuejs/core
+    category: frameworks
+    tech: vue
+    versions: ["main"]
+    source: official
+
+  - id: angular
     url: https://github.com/angular/angular
     category: frameworks
     tech: angular
-    versions: ["master"]
+    versions: ["main"]
+    source: official
+
+  - id: angular-docs
+    url: https://github.com/angular/angular/tree/main/aio
+    category: frameworks
+    tech: angular
+    versions: ["main"]
+    source: official
+
+  - id: svelte
+    url: https://github.com/sveltejs/svelte
+    category: frameworks
+    tech: svelte
+    versions: ["main"]
     source: official
 
   - id: svelte-docs
@@ -214,11 +481,57 @@ repos:
     versions: ["main"]
     source: official
 
-  - id: nextjs-docs
+  - id: solidjs
+    url: https://github.com/solidjs/solid
+    category: frameworks
+    tech: solidjs
+    versions: ["main"]
+    source: official
+
+  - id: solidjs-docs
+    url: https://github.com/solidjs/solid-docs
+    category: frameworks
+    tech: solidjs
+    versions: ["main"]
+    source: official
+
+  - id: qwik
+    url: https://github.com/QwikDev/qwik
+    category: frameworks
+    tech: qwik
+    versions: ["main"]
+    source: official
+
+  - id: preact
+    url: https://github.com/preactjs/preact
+    category: frameworks
+    tech: preact
+    versions: ["main"]
+    source: official
+
+  - id: lit
+    url: https://github.com/lit/lit
+    category: frameworks
+    tech: lit
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # META-FRAMEWORKS & SSR
+  # ============================================================================
+
+  - id: nextjs
     url: https://github.com/vercel/next.js
     category: frameworks
     tech: nextjs
-    versions: ["canary", "main"]
+    versions: ["canary"]
+    source: official
+
+  - id: nuxt
+    url: https://github.com/nuxt/nuxt
+    category: frameworks
+    tech: nuxt
+    versions: ["main"]
     source: official
 
   - id: nuxt-docs
@@ -228,12 +541,44 @@ repos:
     versions: ["main"]
     source: official
 
-  - id: vite-docs
-    url: https://github.com/vitejs/vite
+  - id: remix
+    url: https://github.com/remix-run/remix
     category: frameworks
-    tech: vite
+    tech: remix
     versions: ["main"]
     source: official
+
+  - id: astro
+    url: https://github.com/withastro/astro
+    category: frameworks
+    tech: astro
+    versions: ["main"]
+    source: official
+
+  - id: astro-docs
+    url: https://github.com/withastro/docs
+    category: frameworks
+    tech: astro
+    versions: ["main"]
+    source: official
+
+  - id: gatsby
+    url: https://github.com/gatsbyjs/gatsby
+    category: frameworks
+    tech: gatsby
+    versions: ["master"]
+    source: official
+
+  - id: sveltekit
+    url: https://github.com/sveltejs/kit
+    category: frameworks
+    tech: sveltekit
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # CSS FRAMEWORKS & UI
+  # ============================================================================
 
   - id: tailwind-docs
     url: https://github.com/tailwindlabs/tailwindcss.com
@@ -242,12 +587,191 @@ repos:
     versions: ["master"]
     source: official
 
-  # --- Node/runtime & tooling ---
+  - id: tailwindcss
+    url: https://github.com/tailwindlabs/tailwindcss
+    category: frameworks
+    tech: tailwind
+    versions: ["master"]
+    source: official
+
+  - id: bootstrap
+    url: https://github.com/twbs/bootstrap
+    category: frameworks
+    tech: bootstrap
+    versions: ["main"]
+    source: official
+
+  - id: bulma
+    url: https://github.com/jgthms/bulma
+    category: frameworks
+    tech: bulma
+    versions: ["master"]
+    source: official
+
+  - id: material-ui
+    url: https://github.com/mui/material-ui
+    category: frameworks
+    tech: material-ui
+    versions: ["master"]
+    source: official
+
+  - id: chakra-ui
+    url: https://github.com/chakra-ui/chakra-ui
+    category: frameworks
+    tech: chakra-ui
+    versions: ["main"]
+    source: official
+
+  - id: radix-ui
+    url: https://github.com/radix-ui/primitives
+    category: frameworks
+    tech: radix
+    versions: ["main"]
+    source: official
+
+  - id: shadcn-ui
+    url: https://github.com/shadcn-ui/ui
+    category: frameworks
+    tech: shadcn
+    versions: ["main"]
+    source: official
+
+  - id: headlessui
+    url: https://github.com/tailwindlabs/headlessui
+    category: frameworks
+    tech: headlessui
+    versions: ["main"]
+    source: official
+
+  - id: daisyui
+    url: https://github.com/saadeghi/daisyui
+    category: frameworks
+    tech: daisyui
+    versions: ["master"]
+    source: official
+
+  - id: ant-design
+    url: https://github.com/ant-design/ant-design
+    category: frameworks
+    tech: antd
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # LIGHTWEIGHT JS LIBRARIES
+  # ============================================================================
+
+  - id: htmx
+    url: https://github.com/bigskysoftware/htmx
+    category: frameworks
+    tech: htmx
+    versions: ["master"]
+    source: official
+
+  - id: alpinejs
+    url: https://github.com/alpinejs/alpine
+    category: frameworks
+    tech: alpinejs
+    versions: ["main"]
+    source: official
+
+  - id: petite-vue
+    url: https://github.com/vuejs/petite-vue
+    category: frameworks
+    tech: petite-vue
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # BUILD TOOLS & BUNDLERS
+  # ============================================================================
+
+  - id: vite
+    url: https://github.com/vitejs/vite
+    category: tools
+    tech: vite
+    versions: ["main"]
+    source: official
+
+  - id: webpack
+    url: https://github.com/webpack/webpack
+    category: tools
+    tech: webpack
+    versions: ["main"]
+    source: official
+
+  - id: rollup
+    url: https://github.com/rollup/rollup
+    category: tools
+    tech: rollup
+    versions: ["master"]
+    source: official
+
+  - id: esbuild
+    url: https://github.com/evanw/esbuild
+    category: tools
+    tech: esbuild
+    versions: ["main"]
+    source: official
+
+  - id: parcel
+    url: https://github.com/parcel-bundler/parcel
+    category: tools
+    tech: parcel
+    versions: ["v2"]
+    source: official
+
+  - id: turbo
+    url: https://github.com/vercel/turbo
+    category: tools
+    tech: turborepo
+    versions: ["main"]
+    source: official
+
+  - id: nx
+    url: https://github.com/nrwl/nx
+    category: tools
+    tech: nx
+    versions: ["master"]
+    source: official
+
+  - id: lerna
+    url: https://github.com/lerna/lerna
+    category: tools
+    tech: lerna
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # RUNTIME & PACKAGE MANAGERS
+  # ============================================================================
+
   - id: node
     url: https://github.com/nodejs/node
     category: runtime
     tech: node
-    versions: ["master"]
+    versions: ["main"]
+    source: official
+
+  - id: deno
+    url: https://github.com/denoland/deno
+    category: runtime
+    tech: deno
+    versions: ["main"]
+    source: official
+
+  - id: deno-docs
+    url: https://github.com/denoland/docs
+    category: runtime
+    tech: deno
+    versions: ["main"]
+    source: official
+
+  - id: bun
+    url: https://github.com/oven-sh/bun
+    category: runtime
+    tech: bun
+    versions: ["main"]
     source: official
 
   - id: npm-cli
@@ -271,74 +795,41 @@ repos:
     versions: ["master"]
     source: official
 
-  # --- Databases / SGBD ---
+  # ============================================================================
+  # DATABASES - SQL
+  # ============================================================================
+
   - id: postgres
     url: https://github.com/postgres/postgres
     category: databases
     tech: postgresql
     versions:
-      - "Release_1_0_3"
-      - "REL2_0B"
-      - "REL6_4"
-      - "REL6_5_PATCHES"
-      - "REL7_0_PATCHES"
-      - "REL7_1_STABLE"
-      - "REL7_2_STABLE"
-      - "REL7_3_STABLE"
-      - "REL7_4_STABLE"
-      - "REL8_0_STABLE"
-      - "REL8_1_STABLE"
-      - "REL8_2_STABLE"
-      - "REL8_3_STABLE"
-      - "REL8_4_STABLE"
-      - "REL8_5_ALPHA1_BRANCH"
-      - "REL8_5_ALPHA2_BRANCH"
-      - "REL8_5_ALPHA3_BRANCH"
-      - "REL9_0_ALPHA4_BRANCH"
-      - "REL9_0_ALPHA5_BRANCH"
-      - "REL9_0_STABLE"
-      - "REL9_1_STABLE"
-      - "REL9_2_STABLE"
-      - "REL9_3_STABLE"
-      - "REL9_4_STABLE"
-      - "REL9_5_STABLE"
-      - "REL9_6_STABLE"
-      - "REL_10_STABLE"
-      - "REL_11_STABLE"
-      - "REL_12_STABLE"
-      - "REL_13_STABLE"
       - "REL_14_STABLE"
       - "REL_15_STABLE"
       - "REL_16_STABLE"
       - "REL_17_STABLE"
       - "REL_18_STABLE"
+      - "master"
     source: official
 
-  - id: mysql-docs
-    url: https://github.com/mysql/mysql-docs
+  - id: mysql-server
+    url: https://github.com/mysql/mysql-server
     category: databases
     tech: mysql
-    versions: ["main"]
+    versions: ["8.0", "8.4", "trunk"]
+    source: official
+
+  - id: mariadb-server
+    url: https://github.com/MariaDB/server
+    category: databases
+    tech: mariadb
+    versions: ["11.4", "11.5", "11.6"]
     source: official
 
   - id: mariadb-docs
     url: https://github.com/MariaDB/mariadb-documentation
     category: databases
     tech: mariadb
-    versions: ["main"]
-    source: official
-
-  - id: mongodb-docs
-    url: https://github.com/mongodb/docs
-    category: databases
-    tech: mongodb
-    versions: ["main"]
-    source: official
-
-  - id: redis-docs
-    url: https://github.com/redis/docs
-    category: databases
-    tech: redis
     versions: ["main"]
     source: official
 
@@ -363,10 +854,42 @@ repos:
     versions: ["main"]
     source: official
 
-  - id: elasticsearch-docs
-    url: https://github.com/elastic/docs
+  - id: tidb
+    url: https://github.com/pingcap/tidb
     category: databases
-    tech: elasticsearch
+    tech: tidb
+    versions: ["master"]
+    source: official
+
+  - id: vitess
+    url: https://github.com/vitessio/vitess
+    category: databases
+    tech: vitess
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # DATABASES - NoSQL
+  # ============================================================================
+
+  - id: mongodb-docs
+    url: https://github.com/mongodb/docs
+    category: databases
+    tech: mongodb
+    versions: ["master"]
+    source: official
+
+  - id: redis
+    url: https://github.com/redis/redis
+    category: databases
+    tech: redis
+    versions: ["unstable"]
+    source: official
+
+  - id: redis-docs
+    url: https://github.com/redis/docs
+    category: databases
+    tech: redis
     versions: ["main"]
     source: official
 
@@ -377,14 +900,274 @@ repos:
     versions: ["trunk"]
     source: official
 
-  - id: clickhouse-docs
-    url: https://github.com/ClickHouse/clickhouse-docs
+  - id: couchdb
+    url: https://github.com/apache/couchdb
+    category: databases
+    tech: couchdb
+    versions: ["main"]
+    source: official
+
+  - id: neo4j
+    url: https://github.com/neo4j/neo4j
+    category: databases
+    tech: neo4j
+    versions: ["5.0"]
+    source: official
+
+  - id: dgraph
+    url: https://github.com/dgraph-io/dgraph
+    category: databases
+    tech: dgraph
+    versions: ["main"]
+    source: official
+
+  - id: arangodb
+    url: https://github.com/arangodb/arangodb
+    category: databases
+    tech: arangodb
+    versions: ["devel"]
+    source: official
+
+  - id: dynamodb-docs
+    url: https://github.com/awsdocs/amazon-dynamodb-developer-guide
+    category: databases
+    tech: dynamodb
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # DATABASES - Search & Analytics
+  # ============================================================================
+
+  - id: elasticsearch
+    url: https://github.com/elastic/elasticsearch
+    category: databases
+    tech: elasticsearch
+    versions: ["main"]
+    source: official
+
+  - id: elasticsearch-docs
+    url: https://github.com/elastic/docs
+    category: databases
+    tech: elasticsearch
+    versions: ["main"]
+    source: official
+
+  - id: opensearch
+    url: https://github.com/opensearch-project/OpenSearch
+    category: databases
+    tech: opensearch
+    versions: ["main"]
+    source: official
+
+  - id: clickhouse
+    url: https://github.com/ClickHouse/ClickHouse
     category: databases
     tech: clickhouse
     versions: ["master"]
     source: official
 
-  # --- Containers / Orchestration ---
+  - id: clickhouse-docs
+    url: https://github.com/ClickHouse/clickhouse-docs
+    category: databases
+    tech: clickhouse
+    versions: ["main"]
+    source: official
+
+  - id: meilisearch
+    url: https://github.com/meilisearch/meilisearch
+    category: databases
+    tech: meilisearch
+    versions: ["main"]
+    source: official
+
+  - id: typesense
+    url: https://github.com/typesense/typesense
+    category: databases
+    tech: typesense
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # DATABASES - Time Series & Vector
+  # ============================================================================
+
+  - id: influxdb
+    url: https://github.com/influxdata/influxdb
+    category: databases
+    tech: influxdb
+    versions: ["main-2.x"]
+    source: official
+
+  - id: timescaledb
+    url: https://github.com/timescale/timescaledb
+    category: databases
+    tech: timescaledb
+    versions: ["main"]
+    source: official
+
+  - id: prometheus-server
+    url: https://github.com/prometheus/prometheus
+    category: databases
+    tech: prometheus
+    versions: ["main"]
+    source: official
+
+  - id: pinecone-docs
+    url: https://github.com/pinecone-io/pinecone-docs
+    category: databases
+    tech: pinecone
+    versions: ["main"]
+    source: official
+
+  - id: qdrant
+    url: https://github.com/qdrant/qdrant
+    category: databases
+    tech: qdrant
+    versions: ["master"]
+    source: official
+
+  - id: weaviate
+    url: https://github.com/weaviate/weaviate
+    category: databases
+    tech: weaviate
+    versions: ["main"]
+    source: official
+
+  - id: milvus
+    url: https://github.com/milvus-io/milvus
+    category: databases
+    tech: milvus
+    versions: ["master"]
+    source: official
+
+  - id: chroma
+    url: https://github.com/chroma-core/chroma
+    category: databases
+    tech: chroma
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # ORM & DATABASE TOOLS
+  # ============================================================================
+
+  - id: prisma
+    url: https://github.com/prisma/prisma
+    category: orm
+    tech: prisma
+    versions: ["main"]
+    source: official
+
+  - id: prisma-docs
+    url: https://github.com/prisma/docs
+    category: orm
+    tech: prisma
+    versions: ["main"]
+    source: official
+
+  - id: typeorm
+    url: https://github.com/typeorm/typeorm
+    category: orm
+    tech: typeorm
+    versions: ["master"]
+    source: official
+
+  - id: sequelize
+    url: https://github.com/sequelize/sequelize
+    category: orm
+    tech: sequelize
+    versions: ["main"]
+    source: official
+
+  - id: drizzle-orm
+    url: https://github.com/drizzle-team/drizzle-orm
+    category: orm
+    tech: drizzle
+    versions: ["main"]
+    source: official
+
+  - id: sqlalchemy
+    url: https://github.com/sqlalchemy/sqlalchemy
+    category: orm
+    tech: sqlalchemy
+    versions: ["main"]
+    source: official
+
+  - id: doctrine-orm
+    url: https://github.com/doctrine/orm
+    category: orm
+    tech: doctrine
+    versions: ["3.3.x", "2.20.x"]
+    source: official
+
+  - id: doctrine-dbal
+    url: https://github.com/doctrine/dbal
+    category: orm
+    tech: doctrine
+    versions: ["4.2.x", "3.9.x"]
+    source: official
+
+  - id: hibernate-orm
+    url: https://github.com/hibernate/hibernate-orm
+    category: orm
+    tech: hibernate
+    versions: ["main", "6.6"]
+    source: official
+
+  - id: jooq
+    url: https://github.com/jOOQ/jOOQ
+    category: orm
+    tech: jooq
+    versions: ["main"]
+    source: official
+
+  - id: gorm
+    url: https://github.com/go-gorm/gorm
+    category: orm
+    tech: gorm
+    versions: ["master"]
+    source: official
+
+  - id: sqlx
+    url: https://github.com/jmoiron/sqlx
+    category: orm
+    tech: sqlx
+    versions: ["master"]
+    source: official
+
+  - id: diesel
+    url: https://github.com/diesel-rs/diesel
+    category: orm
+    tech: diesel
+    versions: ["master"]
+    source: official
+
+  - id: sqlx-rust
+    url: https://github.com/launchbadge/sqlx
+    category: orm
+    tech: sqlx-rust
+    versions: ["main"]
+    source: official
+
+  - id: knex
+    url: https://github.com/knex/knex
+    category: orm
+    tech: knex
+    versions: ["master"]
+    source: official
+
+  - id: kysely
+    url: https://github.com/kysely-org/kysely
+    category: orm
+    tech: kysely
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # CONTAINERS & ORCHESTRATION
+  # ============================================================================
+
   - id: docker-docs
     url: https://github.com/docker/docs
     category: containers
@@ -410,6 +1193,20 @@ repos:
     url: https://github.com/kubernetes/website
     category: containers
     tech: kubernetes
+    versions: ["main"]
+    source: official
+
+  - id: kubernetes
+    url: https://github.com/kubernetes/kubernetes
+    category: containers
+    tech: kubernetes
+    versions: ["master"]
+    source: official
+
+  - id: helm
+    url: https://github.com/helm/helm
+    category: containers
+    tech: helm
     versions: ["main"]
     source: official
 
@@ -441,7 +1238,45 @@ repos:
     versions: ["main"]
     source: official
 
-  # --- CI/CD & DevOps ---
+  - id: podman
+    url: https://github.com/containers/podman
+    category: containers
+    tech: podman
+    versions: ["main"]
+    source: official
+
+  - id: buildah
+    url: https://github.com/containers/buildah
+    category: containers
+    tech: buildah
+    versions: ["main"]
+    source: official
+
+  - id: skopeo
+    url: https://github.com/containers/skopeo
+    category: containers
+    tech: skopeo
+    versions: ["main"]
+    source: official
+
+  - id: k3s
+    url: https://github.com/k3s-io/k3s
+    category: containers
+    tech: k3s
+    versions: ["master"]
+    source: official
+
+  - id: rancher
+    url: https://github.com/rancher/rancher
+    category: containers
+    tech: rancher
+    versions: ["release/v2.9"]
+    source: official
+
+  # ============================================================================
+  # CI/CD & DEVOPS
+  # ============================================================================
+
   - id: github-docs
     url: https://github.com/github/docs
     category: devops
@@ -449,10 +1284,24 @@ repos:
     versions: ["main"]
     source: official
 
+  - id: gitlab
+    url: https://github.com/gitlabhq/gitlabhq
+    category: devops
+    tech: gitlab
+    versions: ["master"]
+    source: official
+
   - id: gitlab-docs
     url: https://github.com/gitlabhq/gitlab-docs
     category: devops
     tech: gitlab
+    versions: ["main"]
+    source: official
+
+  - id: jenkins
+    url: https://github.com/jenkinsci/jenkins
+    category: devops
+    tech: jenkins
     versions: ["master"]
     source: official
 
@@ -470,10 +1319,24 @@ repos:
     versions: ["main"]
     source: official
 
-  - id: argo-cd-docs
+  - id: argo-cd
     url: https://github.com/argoproj/argo-cd
     category: devops
     tech: argocd
+    versions: ["master"]
+    source: official
+
+  - id: argo-workflows
+    url: https://github.com/argoproj/argo-workflows
+    category: devops
+    tech: argo-workflows
+    versions: ["main"]
+    source: official
+
+  - id: fluxcd
+    url: https://github.com/fluxcd/flux2
+    category: devops
+    tech: fluxcd
     versions: ["main"]
     source: official
 
@@ -484,6 +1347,13 @@ repos:
     versions: ["main"]
     source: official
 
+  - id: tekton-pipeline
+    url: https://github.com/tektoncd/pipeline
+    category: devops
+    tech: tekton
+    versions: ["main"]
+    source: official
+
   - id: tekton-website
     url: https://github.com/tektoncd/website
     category: devops
@@ -491,11 +1361,64 @@ repos:
     versions: ["main"]
     source: official
 
-  - id: terraform-website
-    url: https://github.com/hashicorp/terraform-website
+  - id: drone
+    url: https://github.com/harness/drone
+    category: devops
+    tech: drone
+    versions: ["master"]
+    source: official
+
+  - id: concourse
+    url: https://github.com/concourse/concourse
+    category: devops
+    tech: concourse
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # INFRASTRUCTURE AS CODE
+  # ============================================================================
+
+  - id: terraform
+    url: https://github.com/hashicorp/terraform
     category: devops
     tech: terraform
     versions: ["main"]
+    source: official
+
+  - id: terraform-docs
+    url: https://github.com/hashicorp/terraform-docs-common
+    category: devops
+    tech: terraform
+    versions: ["main"]
+    source: official
+
+  - id: opentofu
+    url: https://github.com/opentofu/opentofu
+    category: devops
+    tech: opentofu
+    versions: ["main"]
+    source: official
+
+  - id: pulumi
+    url: https://github.com/pulumi/pulumi
+    category: devops
+    tech: pulumi
+    versions: ["master"]
+    source: official
+
+  - id: pulumi-docs
+    url: https://github.com/pulumi/docs
+    category: devops
+    tech: pulumi
+    versions: ["master"]
+    source: official
+
+  - id: ansible
+    url: https://github.com/ansible/ansible
+    category: devops
+    tech: ansible
+    versions: ["devel"]
     source: official
 
   - id: ansible-documentation
@@ -505,11 +1428,95 @@ repos:
     versions: ["devel"]
     source: official
 
-  # --- Observability / SRE ---
+  - id: crossplane
+    url: https://github.com/crossplane/crossplane
+    category: devops
+    tech: crossplane
+    versions: ["main"]
+    source: official
+
+  - id: cdktf
+    url: https://github.com/hashicorp/terraform-cdk
+    category: devops
+    tech: cdktf
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # CLOUD PROVIDERS
+  # ============================================================================
+
+  - id: aws-sdk-examples
+    url: https://github.com/awsdocs/aws-doc-sdk-examples
+    category: cloud
+    tech: aws
+    versions: ["main"]
+    source: official
+
+  - id: aws-cdk
+    url: https://github.com/aws/aws-cdk
+    category: cloud
+    tech: aws-cdk
+    versions: ["main"]
+    source: official
+
+  - id: aws-sam-cli
+    url: https://github.com/aws/aws-sam-cli
+    category: cloud
+    tech: aws-sam
+    versions: ["develop"]
+    source: official
+
+  - id: serverless-framework
+    url: https://github.com/serverless/serverless
+    category: cloud
+    tech: serverless
+    versions: ["main"]
+    source: official
+
+  - id: azure-docs
+    url: https://github.com/MicrosoftDocs/azure-docs
+    category: cloud
+    tech: azure
+    versions: ["main"]
+    source: official
+
+  - id: azure-sdk-for-python
+    url: https://github.com/Azure/azure-sdk-for-python
+    category: cloud
+    tech: azure
+    versions: ["main"]
+    source: official
+
+  - id: gcp-python-samples
+    url: https://github.com/GoogleCloudPlatform/python-docs-samples
+    category: cloud
+    tech: gcp
+    versions: ["main"]
+    source: official
+
+  - id: google-cloud-go
+    url: https://github.com/googleapis/google-cloud-go
+    category: cloud
+    tech: gcp
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # OBSERVABILITY & SRE
+  # ============================================================================
+
   - id: prometheus-docs
     url: https://github.com/prometheus/docs
     category: sre
     tech: prometheus
+    versions: ["main"]
+    source: official
+
+  - id: grafana
+    url: https://github.com/grafana/grafana
+    category: sre
+    tech: grafana
     versions: ["main"]
     source: official
 
@@ -520,6 +1527,34 @@ repos:
     versions: ["main"]
     source: official
 
+  - id: loki
+    url: https://github.com/grafana/loki
+    category: sre
+    tech: loki
+    versions: ["main"]
+    source: official
+
+  - id: tempo
+    url: https://github.com/grafana/tempo
+    category: sre
+    tech: tempo
+    versions: ["main"]
+    source: official
+
+  - id: mimir
+    url: https://github.com/grafana/mimir
+    category: sre
+    tech: mimir
+    versions: ["main"]
+    source: official
+
+  - id: opentelemetry-specification
+    url: https://github.com/open-telemetry/opentelemetry-specification
+    category: sre
+    tech: opentelemetry
+    versions: ["main"]
+    source: official
+
   - id: opentelemetry-io
     url: https://github.com/open-telemetry/opentelemetry.io
     category: sre
@@ -527,14 +1562,523 @@ repos:
     versions: ["main"]
     source: official
 
-  - id: loki-docs
-    url: https://github.com/grafana/loki
+  - id: opentelemetry-collector
+    url: https://github.com/open-telemetry/opentelemetry-collector
     category: sre
-    tech: loki
+    tech: opentelemetry
     versions: ["main"]
     source: official
 
-  # --- Architecture & Security ---
+  - id: jaeger
+    url: https://github.com/jaegertracing/jaeger
+    category: sre
+    tech: jaeger
+    versions: ["main"]
+    source: official
+
+  - id: zipkin
+    url: https://github.com/openzipkin/zipkin
+    category: sre
+    tech: zipkin
+    versions: ["master"]
+    source: official
+
+  - id: datadog-agent
+    url: https://github.com/DataDog/datadog-agent
+    category: sre
+    tech: datadog
+    versions: ["main"]
+    source: official
+
+  - id: sentry
+    url: https://github.com/getsentry/sentry
+    category: sre
+    tech: sentry
+    versions: ["master"]
+    source: official
+
+  - id: alertmanager
+    url: https://github.com/prometheus/alertmanager
+    category: sre
+    tech: alertmanager
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # TESTING
+  # ============================================================================
+
+  - id: jest
+    url: https://github.com/jestjs/jest
+    category: testing
+    tech: jest
+    versions: ["main"]
+    source: official
+
+  - id: vitest
+    url: https://github.com/vitest-dev/vitest
+    category: testing
+    tech: vitest
+    versions: ["main"]
+    source: official
+
+  - id: playwright
+    url: https://github.com/microsoft/playwright
+    category: testing
+    tech: playwright
+    versions: ["main"]
+    source: official
+
+  - id: cypress
+    url: https://github.com/cypress-io/cypress
+    category: testing
+    tech: cypress
+    versions: ["develop"]
+    source: official
+
+  - id: cypress-docs
+    url: https://github.com/cypress-io/cypress-documentation
+    category: testing
+    tech: cypress
+    versions: ["main"]
+    source: official
+
+  - id: puppeteer
+    url: https://github.com/puppeteer/puppeteer
+    category: testing
+    tech: puppeteer
+    versions: ["main"]
+    source: official
+
+  - id: selenium
+    url: https://github.com/SeleniumHQ/selenium
+    category: testing
+    tech: selenium
+    versions: ["trunk"]
+    source: official
+
+  - id: pytest
+    url: https://github.com/pytest-dev/pytest
+    category: testing
+    tech: pytest
+    versions: ["main"]
+    source: official
+
+  - id: unittest-docs
+    url: https://github.com/python/cpython/tree/main/Lib/unittest
+    category: testing
+    tech: unittest
+    versions: ["main"]
+    source: official
+
+  - id: phpunit
+    url: https://github.com/sebastianbergmann/phpunit
+    category: testing
+    tech: phpunit
+    versions: ["main", "11.5"]
+    source: official
+
+  - id: pest
+    url: https://github.com/pestphp/pest
+    category: testing
+    tech: pest
+    versions: ["3.x"]
+    source: official
+
+  - id: junit5
+    url: https://github.com/junit-team/junit5
+    category: testing
+    tech: junit
+    versions: ["main"]
+    source: official
+
+  - id: testng
+    url: https://github.com/testng-team/testng
+    category: testing
+    tech: testng
+    versions: ["master"]
+    source: official
+
+  - id: mockito
+    url: https://github.com/mockito/mockito
+    category: testing
+    tech: mockito
+    versions: ["main"]
+    source: official
+
+  - id: rspec
+    url: https://github.com/rspec/rspec
+    category: testing
+    tech: rspec
+    versions: ["main"]
+    source: official
+
+  - id: mocha
+    url: https://github.com/mochajs/mocha
+    category: testing
+    tech: mocha
+    versions: ["master"]
+    source: official
+
+  - id: testing-library
+    url: https://github.com/testing-library/react-testing-library
+    category: testing
+    tech: testing-library
+    versions: ["main"]
+    source: official
+
+  - id: testing-library-docs
+    url: https://github.com/testing-library/testing-library-docs
+    category: testing
+    tech: testing-library
+    versions: ["main"]
+    source: official
+
+  - id: msw
+    url: https://github.com/mswjs/msw
+    category: testing
+    tech: msw
+    versions: ["main"]
+    source: official
+
+  - id: storybook
+    url: https://github.com/storybookjs/storybook
+    category: testing
+    tech: storybook
+    versions: ["next"]
+    source: official
+
+  - id: k6
+    url: https://github.com/grafana/k6
+    category: testing
+    tech: k6
+    versions: ["master"]
+    source: official
+
+  - id: locust
+    url: https://github.com/locustio/locust
+    category: testing
+    tech: locust
+    versions: ["master"]
+    source: official
+
+  - id: gatling
+    url: https://github.com/gatling/gatling
+    category: testing
+    tech: gatling
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # API & COMMUNICATION PROTOCOLS
+  # ============================================================================
+
+  - id: graphql-spec
+    url: https://github.com/graphql/graphql-spec
+    category: api
+    tech: graphql
+    versions: ["main"]
+    source: official
+
+  - id: graphql-js
+    url: https://github.com/graphql/graphql-js
+    category: api
+    tech: graphql
+    versions: ["main"]
+    source: official
+
+  - id: apollo-client
+    url: https://github.com/apollographql/apollo-client
+    category: api
+    tech: apollo
+    versions: ["main"]
+    source: official
+
+  - id: apollo-server
+    url: https://github.com/apollographql/apollo-server
+    category: api
+    tech: apollo
+    versions: ["main"]
+    source: official
+
+  - id: relay
+    url: https://github.com/facebook/relay
+    category: api
+    tech: relay
+    versions: ["main"]
+    source: official
+
+  - id: openapi-spec
+    url: https://github.com/OAI/OpenAPI-Specification
+    category: api
+    tech: openapi
+    versions: ["main"]
+    source: official
+
+  - id: swagger-ui
+    url: https://github.com/swagger-api/swagger-ui
+    category: api
+    tech: swagger
+    versions: ["master"]
+    source: official
+
+  - id: grpc
+    url: https://github.com/grpc/grpc
+    category: api
+    tech: grpc
+    versions: ["master"]
+    source: official
+
+  - id: grpc-web
+    url: https://github.com/grpc/grpc-web
+    category: api
+    tech: grpc
+    versions: ["master"]
+    source: official
+
+  - id: protobuf
+    url: https://github.com/protocolbuffers/protobuf
+    category: api
+    tech: protobuf
+    versions: ["main"]
+    source: official
+
+  - id: buf
+    url: https://github.com/bufbuild/buf
+    category: api
+    tech: buf
+    versions: ["main"]
+    source: official
+
+  - id: connect-rpc
+    url: https://github.com/connectrpc/connect-go
+    category: api
+    tech: connect
+    versions: ["main"]
+    source: official
+
+  - id: trpc
+    url: https://github.com/trpc/trpc
+    category: api
+    tech: trpc
+    versions: ["main"]
+    source: official
+
+  - id: asyncapi-spec
+    url: https://github.com/asyncapi/spec
+    category: api
+    tech: asyncapi
+    versions: ["master"]
+    source: official
+
+  - id: json-schema-spec
+    url: https://github.com/json-schema-org/json-schema-spec
+    category: api
+    tech: json-schema
+    versions: ["main"]
+    source: official
+
+  - id: json-api
+    url: https://github.com/json-api/json-api
+    category: api
+    tech: json-api
+    versions: ["gh-pages"]
+    source: official
+
+  # ============================================================================
+  # MESSAGE BROKERS & EVENT-DRIVEN
+  # ============================================================================
+
+  - id: kafka
+    url: https://github.com/apache/kafka
+    category: messaging
+    tech: kafka
+    versions: ["trunk"]
+    source: official
+
+  - id: rabbitmq-server
+    url: https://github.com/rabbitmq/rabbitmq-server
+    category: messaging
+    tech: rabbitmq
+    versions: ["main"]
+    source: official
+
+  - id: rabbitmq-website
+    url: https://github.com/rabbitmq/rabbitmq-website
+    category: messaging
+    tech: rabbitmq
+    versions: ["main"]
+    source: official
+
+  - id: nats-server
+    url: https://github.com/nats-io/nats-server
+    category: messaging
+    tech: nats
+    versions: ["main"]
+    source: official
+
+  - id: nats-docs
+    url: https://github.com/nats-io/nats.docs
+    category: messaging
+    tech: nats
+    versions: ["master"]
+    source: official
+
+  - id: pulsar
+    url: https://github.com/apache/pulsar
+    category: messaging
+    tech: pulsar
+    versions: ["master"]
+    source: official
+
+  - id: activemq
+    url: https://github.com/apache/activemq
+    category: messaging
+    tech: activemq
+    versions: ["main"]
+    source: official
+
+  - id: zeromq
+    url: https://github.com/zeromq/libzmq
+    category: messaging
+    tech: zeromq
+    versions: ["master"]
+    source: official
+
+  - id: celery
+    url: https://github.com/celery/celery
+    category: messaging
+    tech: celery
+    versions: ["main"]
+    source: official
+
+  - id: bullmq
+    url: https://github.com/taskforcesh/bullmq
+    category: messaging
+    tech: bullmq
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # AUTHENTICATION & SECURITY
+  # ============================================================================
+
+  - id: owasp-cheatsheet-series
+    url: https://github.com/OWASP/CheatSheetSeries
+    category: security
+    tech: owasp
+    versions: ["master"]
+    source: community
+
+  - id: owasp-asvs
+    url: https://github.com/OWASP/ASVS
+    category: security
+    tech: owasp
+    versions: ["master"]
+    source: community
+
+  - id: owasp-top10
+    url: https://github.com/OWASP/Top10
+    category: security
+    tech: owasp
+    versions: ["master"]
+    source: community
+
+  - id: owasp-wstg
+    url: https://github.com/OWASP/wstg
+    category: security
+    tech: owasp
+    versions: ["master"]
+    source: community
+
+  - id: owasp-samm
+    url: https://github.com/OWASP/samm
+    category: security
+    tech: owasp
+    versions: ["master"]
+    source: community
+
+  - id: keycloak
+    url: https://github.com/keycloak/keycloak
+    category: security
+    tech: keycloak
+    versions: ["main"]
+    source: official
+
+  - id: oauth2-spec
+    url: https://github.com/oauth-xx/oauth2
+    category: security
+    tech: oauth2
+    versions: ["main"]
+    source: official
+
+  - id: passport
+    url: https://github.com/jaredhanson/passport
+    category: security
+    tech: passport
+    versions: ["master"]
+    source: official
+
+  - id: nextauth
+    url: https://github.com/nextauthjs/next-auth
+    category: security
+    tech: nextauth
+    versions: ["main"]
+    source: official
+
+  - id: auth0-docs
+    url: https://github.com/auth0/docs
+    category: security
+    tech: auth0
+    versions: ["master"]
+    source: official
+
+  - id: jwt-io
+    url: https://github.com/jsonwebtoken/jsonwebtoken.github.io
+    category: security
+    tech: jwt
+    versions: ["master"]
+    source: official
+
+  - id: vault
+    url: https://github.com/hashicorp/vault
+    category: security
+    tech: vault
+    versions: ["main"]
+    source: official
+
+  - id: trivy
+    url: https://github.com/aquasecurity/trivy
+    category: security
+    tech: trivy
+    versions: ["main"]
+    source: official
+
+  - id: snyk-cli
+    url: https://github.com/snyk/cli
+    category: security
+    tech: snyk
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # ARCHITECTURE & DESIGN PATTERNS
+  # ============================================================================
+
+  - id: java-design-patterns
+    url: https://github.com/iluwatar/java-design-patterns
+    category: architecture
+    tech: design-patterns
+    versions: ["master"]
+    source: community
+
+  - id: system-design-primer
+    url: https://github.com/donnemartin/system-design-primer
+    category: architecture
+    tech: system-design
+    versions: ["master"]
+    source: community
+
   - id: awesome-software-architecture
     url: https://github.com/mehdihadeli/awesome-software-architecture
     category: architecture
@@ -556,23 +2100,1266 @@ repos:
     versions: ["main"]
     source: community
 
-  - id: owasp-cheatsheet-series
-    url: https://github.com/OWASP/CheatSheetSeries
-    category: security
-    tech: owasp
+  - id: microsoft-api-guidelines
+    url: https://github.com/microsoft/api-guidelines
+    category: architecture
+    tech: api-design
+    versions: ["vNext"]
+    source: official
+
+  - id: google-api-design-guide
+    url: https://github.com/googleapis/googleapis
+    category: architecture
+    tech: api-design
+    versions: ["master"]
+    source: official
+
+  - id: azure-architecture-center
+    url: https://github.com/MicrosoftDocs/architecture-center
+    category: architecture
+    tech: cloud-patterns
+    versions: ["main"]
+    source: official
+
+  - id: ddd-starter
+    url: https://github.com/ddd-crew/ddd-starter-modelling-process
+    category: architecture
+    tech: ddd
+    versions: ["master"]
+    source: community
+
+  - id: domain-driven-hexagon
+    url: https://github.com/Sairyss/domain-driven-hexagon
+    category: architecture
+    tech: ddd
     versions: ["main"]
     source: community
 
-  - id: owasp-asvs
-    url: https://github.com/OWASP/ASVS
-    category: security
-    tech: owasp
+  - id: clean-architecture-dotnet
+    url: https://github.com/ardalis/CleanArchitecture
+    category: architecture
+    tech: clean-architecture
+    versions: ["main"]
+    source: community
+
+  - id: clean-architecture-node
+    url: https://github.com/dev-mastery/comments-api
+    category: architecture
+    tech: clean-architecture
     versions: ["master"]
     source: community
 
-  - id: owasp-top10
-    url: https://github.com/OWASP/Top10
-    category: security
-    tech: owasp
+  - id: ftgo-application
+    url: https://github.com/microservices-patterns/ftgo-application
+    category: architecture
+    tech: microservices
     versions: ["master"]
     source: community
+
+  - id: twelve-factor-app
+    url: https://github.com/heroku/12factor
+    category: architecture
+    tech: twelve-factor
+    versions: ["master"]
+    source: official
+
+  - id: refactoring-guru-patterns
+    url: https://github.com/RefactoringGuru/design-patterns-python
+    category: architecture
+    tech: design-patterns
+    versions: ["main"]
+    source: community
+
+  - id: cqrs-journey
+    url: https://github.com/microsoftarchive/cqrs-journey
+    category: architecture
+    tech: cqrs
+    versions: ["master"]
+    source: official
+
+  - id: event-sourcing-examples
+    url: https://github.com/oskardudycz/EventSourcing.NetCore
+    category: architecture
+    tech: event-sourcing
+    versions: ["main"]
+    source: community
+
+  # ============================================================================
+  # ALGORITHMS & DATA STRUCTURES
+  # ============================================================================
+
+  - id: the-algorithms-python
+    url: https://github.com/TheAlgorithms/Python
+    category: algorithms
+    tech: python
+    versions: ["master"]
+    source: community
+
+  - id: the-algorithms-java
+    url: https://github.com/TheAlgorithms/Java
+    category: algorithms
+    tech: java
+    versions: ["master"]
+    source: community
+
+  - id: the-algorithms-javascript
+    url: https://github.com/TheAlgorithms/JavaScript
+    category: algorithms
+    tech: javascript
+    versions: ["master"]
+    source: community
+
+  - id: the-algorithms-go
+    url: https://github.com/TheAlgorithms/Go
+    category: algorithms
+    tech: go
+    versions: ["master"]
+    source: community
+
+  - id: the-algorithms-rust
+    url: https://github.com/TheAlgorithms/Rust
+    category: algorithms
+    tech: rust
+    versions: ["master"]
+    source: community
+
+  - id: the-algorithms-typescript
+    url: https://github.com/TheAlgorithms/TypeScript
+    category: algorithms
+    tech: typescript
+    versions: ["master"]
+    source: community
+
+  - id: the-algorithms-csharp
+    url: https://github.com/TheAlgorithms/C-Sharp
+    category: algorithms
+    tech: csharp
+    versions: ["master"]
+    source: community
+
+  - id: javascript-algorithms
+    url: https://github.com/trekhleb/javascript-algorithms
+    category: algorithms
+    tech: javascript
+    versions: ["master"]
+    source: community
+
+  - id: leetcode-patterns
+    url: https://github.com/seanprashad/leetcode-patterns
+    category: algorithms
+    tech: interview
+    versions: ["main"]
+    source: community
+
+  - id: coding-interview-university
+    url: https://github.com/jwasham/coding-interview-university
+    category: algorithms
+    tech: interview
+    versions: ["main"]
+    source: community
+
+  - id: tech-interview-handbook
+    url: https://github.com/yangshun/tech-interview-handbook
+    category: algorithms
+    tech: interview
+    versions: ["main"]
+    source: community
+
+  - id: interviews
+    url: https://github.com/kdn251/interviews
+    category: algorithms
+    tech: interview
+    versions: ["master"]
+    source: community
+
+  # ============================================================================
+  # CODE CONVENTIONS & STYLE GUIDES
+  # ============================================================================
+
+  - id: google-styleguide
+    url: https://github.com/google/styleguide
+    category: conventions
+    tech: multi
+    versions: ["gh-pages"]
+    source: official
+
+  - id: airbnb-javascript
+    url: https://github.com/airbnb/javascript
+    category: conventions
+    tech: javascript
+    versions: ["master"]
+    source: community
+
+  - id: standardjs
+    url: https://github.com/standard/standard
+    category: conventions
+    tech: javascript
+    versions: ["master"]
+    source: community
+
+  - id: python-peps
+    url: https://github.com/python/peps
+    category: conventions
+    tech: python
+    versions: ["main"]
+    source: official
+
+  - id: black
+    url: https://github.com/psf/black
+    category: conventions
+    tech: python
+    versions: ["main"]
+    source: official
+
+  - id: ruff
+    url: https://github.com/astral-sh/ruff
+    category: conventions
+    tech: python
+    versions: ["main"]
+    source: official
+
+  - id: php-fig-standards
+    url: https://github.com/php-fig/fig-standards
+    category: conventions
+    tech: php
+    versions: ["master"]
+    source: official
+
+  - id: php-cs-fixer
+    url: https://github.com/PHP-CS-Fixer/PHP-CS-Fixer
+    category: conventions
+    tech: php
+    versions: ["master"]
+    source: official
+
+  - id: rubocop
+    url: https://github.com/rubocop/rubocop
+    category: conventions
+    tech: ruby
+    versions: ["master"]
+    source: community
+
+  - id: effective-go
+    url: https://github.com/golang/go/tree/master/doc
+    category: conventions
+    tech: go
+    versions: ["master"]
+    source: official
+
+  - id: rust-style-guide
+    url: https://github.com/rust-dev-tools/fmt-rfcs
+    category: conventions
+    tech: rust
+    versions: ["master"]
+    source: official
+
+  - id: rustfmt
+    url: https://github.com/rust-lang/rustfmt
+    category: conventions
+    tech: rust
+    versions: ["master"]
+    source: official
+
+  - id: google-java-format
+    url: https://github.com/google/google-java-format
+    category: conventions
+    tech: java
+    versions: ["master"]
+    source: official
+
+  - id: checkstyle
+    url: https://github.com/checkstyle/checkstyle
+    category: conventions
+    tech: java
+    versions: ["master"]
+    source: official
+
+  - id: ktlint
+    url: https://github.com/pinterest/ktlint
+    category: conventions
+    tech: kotlin
+    versions: ["master"]
+    source: community
+
+  - id: swiftlint
+    url: https://github.com/realm/SwiftLint
+    category: conventions
+    tech: swift
+    versions: ["main"]
+    source: community
+
+  - id: eslint
+    url: https://github.com/eslint/eslint
+    category: conventions
+    tech: javascript
+    versions: ["main"]
+    source: official
+
+  - id: prettier
+    url: https://github.com/prettier/prettier
+    category: conventions
+    tech: multi
+    versions: ["main"]
+    source: official
+
+  - id: biome
+    url: https://github.com/biomejs/biome
+    category: conventions
+    tech: multi
+    versions: ["main"]
+    source: official
+
+  - id: editorconfig
+    url: https://github.com/editorconfig/editorconfig
+    category: conventions
+    tech: multi
+    versions: ["master"]
+    source: official
+
+  - id: conventional-commits
+    url: https://github.com/conventional-commits/conventionalcommits.org
+    category: conventions
+    tech: git
+    versions: ["master"]
+    source: community
+
+  - id: semantic-versioning
+    url: https://github.com/semver/semver
+    category: conventions
+    tech: versioning
+    versions: ["master"]
+    source: official
+
+  - id: keepachangelog
+    url: https://github.com/olivierlacan/keep-a-changelog
+    category: conventions
+    tech: changelog
+    versions: ["main"]
+    source: community
+
+  # ============================================================================
+  # MOBILE DEVELOPMENT
+  # ============================================================================
+
+  - id: flutter
+    url: https://github.com/flutter/flutter
+    category: mobile
+    tech: flutter
+    versions: ["master", "stable"]
+    source: official
+
+  - id: flutter-website
+    url: https://github.com/flutter/website
+    category: mobile
+    tech: flutter
+    versions: ["main"]
+    source: official
+
+  - id: react-native
+    url: https://github.com/facebook/react-native
+    category: mobile
+    tech: react-native
+    versions: ["main"]
+    source: official
+
+  - id: react-native-website
+    url: https://github.com/facebook/react-native-website
+    category: mobile
+    tech: react-native
+    versions: ["main"]
+    source: official
+
+  - id: expo
+    url: https://github.com/expo/expo
+    category: mobile
+    tech: expo
+    versions: ["main"]
+    source: official
+
+  - id: swift-evolution
+    url: https://github.com/apple/swift-evolution
+    category: mobile
+    tech: ios
+    versions: ["main"]
+    source: official
+
+  - id: jetpack-compose-samples
+    url: https://github.com/android/compose-samples
+    category: mobile
+    tech: android
+    versions: ["main"]
+    source: official
+
+  - id: android-architecture
+    url: https://github.com/android/architecture-samples
+    category: mobile
+    tech: android
+    versions: ["main"]
+    source: official
+
+  - id: ionic-framework
+    url: https://github.com/ionic-team/ionic-framework
+    category: mobile
+    tech: ionic
+    versions: ["main"]
+    source: official
+
+  - id: capacitor
+    url: https://github.com/ionic-team/capacitor
+    category: mobile
+    tech: capacitor
+    versions: ["main"]
+    source: official
+
+  - id: tauri
+    url: https://github.com/tauri-apps/tauri
+    category: mobile
+    tech: tauri
+    versions: ["dev"]
+    source: official
+
+  # ============================================================================
+  # AI/ML FRAMEWORKS
+  # ============================================================================
+
+  - id: pytorch
+    url: https://github.com/pytorch/pytorch
+    category: ml
+    tech: pytorch
+    versions: ["main"]
+    source: official
+
+  - id: pytorch-tutorials
+    url: https://github.com/pytorch/tutorials
+    category: ml
+    tech: pytorch
+    versions: ["main"]
+    source: official
+
+  - id: tensorflow
+    url: https://github.com/tensorflow/tensorflow
+    category: ml
+    tech: tensorflow
+    versions: ["master"]
+    source: official
+
+  - id: tensorflow-docs
+    url: https://github.com/tensorflow/docs
+    category: ml
+    tech: tensorflow
+    versions: ["master"]
+    source: official
+
+  - id: keras
+    url: https://github.com/keras-team/keras
+    category: ml
+    tech: keras
+    versions: ["master"]
+    source: official
+
+  - id: jax
+    url: https://github.com/jax-ml/jax
+    category: ml
+    tech: jax
+    versions: ["main"]
+    source: official
+
+  - id: huggingface-transformers
+    url: https://github.com/huggingface/transformers
+    category: ml
+    tech: transformers
+    versions: ["main"]
+    source: official
+
+  - id: huggingface-datasets
+    url: https://github.com/huggingface/datasets
+    category: ml
+    tech: huggingface
+    versions: ["main"]
+    source: official
+
+  - id: huggingface-diffusers
+    url: https://github.com/huggingface/diffusers
+    category: ml
+    tech: huggingface
+    versions: ["main"]
+    source: official
+
+  - id: langchain
+    url: https://github.com/langchain-ai/langchain
+    category: ml
+    tech: langchain
+    versions: ["master"]
+    source: official
+
+  - id: langchain-docs
+    url: https://github.com/langchain-ai/langchain/tree/master/docs
+    category: ml
+    tech: langchain
+    versions: ["master"]
+    source: official
+
+  - id: llamaindex
+    url: https://github.com/run-llama/llama_index
+    category: ml
+    tech: llamaindex
+    versions: ["main"]
+    source: official
+
+  - id: autogen
+    url: https://github.com/microsoft/autogen
+    category: ml
+    tech: autogen
+    versions: ["main"]
+    source: official
+
+  - id: crewai
+    url: https://github.com/joaomdmoura/crewAI
+    category: ml
+    tech: crewai
+    versions: ["main"]
+    source: official
+
+  - id: haystack
+    url: https://github.com/deepset-ai/haystack
+    category: ml
+    tech: haystack
+    versions: ["main"]
+    source: official
+
+  - id: semantic-kernel
+    url: https://github.com/microsoft/semantic-kernel
+    category: ml
+    tech: semantic-kernel
+    versions: ["main"]
+    source: official
+
+  - id: scikit-learn
+    url: https://github.com/scikit-learn/scikit-learn
+    category: ml
+    tech: sklearn
+    versions: ["main"]
+    source: official
+
+  - id: pandas
+    url: https://github.com/pandas-dev/pandas
+    category: ml
+    tech: pandas
+    versions: ["main"]
+    source: official
+
+  - id: numpy
+    url: https://github.com/numpy/numpy
+    category: ml
+    tech: numpy
+    versions: ["main"]
+    source: official
+
+  - id: polars
+    url: https://github.com/pola-rs/polars
+    category: ml
+    tech: polars
+    versions: ["main"]
+    source: official
+
+  - id: mlflow
+    url: https://github.com/mlflow/mlflow
+    category: ml
+    tech: mlflow
+    versions: ["master"]
+    source: official
+
+  - id: dvc
+    url: https://github.com/iterative/dvc
+    category: ml
+    tech: dvc
+    versions: ["main"]
+    source: official
+
+  - id: wandb
+    url: https://github.com/wandb/wandb
+    category: ml
+    tech: wandb
+    versions: ["main"]
+    source: official
+
+  - id: ray
+    url: https://github.com/ray-project/ray
+    category: ml
+    tech: ray
+    versions: ["master"]
+    source: official
+
+  - id: vllm
+    url: https://github.com/vllm-project/vllm
+    category: ml
+    tech: vllm
+    versions: ["main"]
+    source: official
+
+  - id: ollama
+    url: https://github.com/ollama/ollama
+    category: ml
+    tech: ollama
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # WEB FUNDAMENTALS & CONCEPTS
+  # ============================================================================
+
+  - id: mdn-content
+    url: https://github.com/mdn/content
+    category: concepts
+    tech: web
+    versions: ["main"]
+    source: official
+
+  - id: mdn-learning-area
+    url: https://github.com/mdn/learning-area
+    category: concepts
+    tech: web
+    versions: ["main"]
+    source: official
+
+  - id: web-dev-for-beginners
+    url: https://github.com/microsoft/Web-Dev-For-Beginners
+    category: concepts
+    tech: web
+    versions: ["main"]
+    source: official
+
+  - id: web.dev
+    url: https://github.com/GoogleChrome/web.dev
+    category: concepts
+    tech: web
+    versions: ["main"]
+    source: official
+
+  - id: html-spec
+    url: https://github.com/nickthing/nickthing.github.io
+    category: concepts
+    tech: html
+    versions: ["master"]
+    source: official
+
+  - id: csswg-drafts
+    url: https://github.com/w3c/csswg-drafts
+    category: concepts
+    tech: css
+    versions: ["main"]
+    source: official
+
+  - id: developer-roadmap
+    url: https://github.com/kamranahmedse/developer-roadmap
+    category: concepts
+    tech: roadmap
+    versions: ["master"]
+    source: community
+
+  - id: build-your-own-x
+    url: https://github.com/codecrafters-io/build-your-own-x
+    category: concepts
+    tech: learning
+    versions: ["master"]
+    source: community
+
+  - id: free-programming-books
+    url: https://github.com/EbookFoundation/free-programming-books
+    category: concepts
+    tech: resources
+    versions: ["main"]
+    source: community
+
+  - id: awesome-scalability
+    url: https://github.com/binhnguyennus/awesome-scalability
+    category: concepts
+    tech: scalability
+    versions: ["master"]
+    source: community
+
+  - id: awesome-distributed-systems
+    url: https://github.com/theanalyst/awesome-distributed-systems
+    category: concepts
+    tech: distributed
+    versions: ["master"]
+    source: community
+
+  - id: papers-we-love
+    url: https://github.com/papers-we-love/papers-we-love
+    category: concepts
+    tech: papers
+    versions: ["main"]
+    source: community
+
+  # ============================================================================
+  # GIT & VERSION CONTROL
+  # ============================================================================
+
+  - id: git
+    url: https://github.com/git/git
+    category: tools
+    tech: git
+    versions: ["master"]
+    source: official
+
+  - id: git-flight-rules
+    url: https://github.com/k88hudson/git-flight-rules
+    category: tools
+    tech: git
+    versions: ["master"]
+    source: community
+
+  - id: gitignore
+    url: https://github.com/github/gitignore
+    category: tools
+    tech: git
+    versions: ["main"]
+    source: official
+
+  - id: pre-commit
+    url: https://github.com/pre-commit/pre-commit
+    category: tools
+    tech: pre-commit
+    versions: ["main"]
+    source: official
+
+  - id: husky
+    url: https://github.com/typicode/husky
+    category: tools
+    tech: husky
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # STATE MANAGEMENT
+  # ============================================================================
+
+  - id: redux
+    url: https://github.com/reduxjs/redux
+    category: state
+    tech: redux
+    versions: ["master"]
+    source: official
+
+  - id: redux-toolkit
+    url: https://github.com/reduxjs/redux-toolkit
+    category: state
+    tech: redux
+    versions: ["master"]
+    source: official
+
+  - id: zustand
+    url: https://github.com/pmndrs/zustand
+    category: state
+    tech: zustand
+    versions: ["main"]
+    source: official
+
+  - id: jotai
+    url: https://github.com/pmndrs/jotai
+    category: state
+    tech: jotai
+    versions: ["main"]
+    source: official
+
+  - id: recoil
+    url: https://github.com/facebookexperimental/Recoil
+    category: state
+    tech: recoil
+    versions: ["main"]
+    source: official
+
+  - id: mobx
+    url: https://github.com/mobxjs/mobx
+    category: state
+    tech: mobx
+    versions: ["main"]
+    source: official
+
+  - id: pinia
+    url: https://github.com/vuejs/pinia
+    category: state
+    tech: pinia
+    versions: ["v2"]
+    source: official
+
+  - id: vuex
+    url: https://github.com/vuejs/vuex
+    category: state
+    tech: vuex
+    versions: ["main"]
+    source: official
+
+  - id: ngrx-platform
+    url: https://github.com/ngrx/platform
+    category: state
+    tech: ngrx
+    versions: ["main"]
+    source: official
+
+  - id: xstate
+    url: https://github.com/statelyai/xstate
+    category: state
+    tech: xstate
+    versions: ["main"]
+    source: official
+
+  - id: tanstack-query
+    url: https://github.com/TanStack/query
+    category: state
+    tech: tanstack-query
+    versions: ["main"]
+    source: official
+
+  - id: swr
+    url: https://github.com/vercel/swr
+    category: state
+    tech: swr
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # FORMS & VALIDATION
+  # ============================================================================
+
+  - id: react-hook-form
+    url: https://github.com/react-hook-form/react-hook-form
+    category: forms
+    tech: react-hook-form
+    versions: ["master"]
+    source: official
+
+  - id: formik
+    url: https://github.com/jaredpalmer/formik
+    category: forms
+    tech: formik
+    versions: ["main"]
+    source: official
+
+  - id: vee-validate
+    url: https://github.com/logaretm/vee-validate
+    category: forms
+    tech: vee-validate
+    versions: ["main"]
+    source: official
+
+  - id: zod
+    url: https://github.com/colinhacks/zod
+    category: forms
+    tech: zod
+    versions: ["main"]
+    source: official
+
+  - id: yup
+    url: https://github.com/jquense/yup
+    category: forms
+    tech: yup
+    versions: ["master"]
+    source: official
+
+  - id: valibot
+    url: https://github.com/fabian-hiller/valibot
+    category: forms
+    tech: valibot
+    versions: ["main"]
+    source: official
+
+  - id: joi
+    url: https://github.com/hapijs/joi
+    category: forms
+    tech: joi
+    versions: ["master"]
+    source: official
+
+  - id: ajv
+    url: https://github.com/ajv-validator/ajv
+    category: forms
+    tech: ajv
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # REAL-TIME & WEBSOCKETS
+  # ============================================================================
+
+  - id: socket-io
+    url: https://github.com/socketio/socket.io
+    category: realtime
+    tech: socketio
+    versions: ["main"]
+    source: official
+
+  - id: ws
+    url: https://github.com/websockets/ws
+    category: realtime
+    tech: ws
+    versions: ["master"]
+    source: official
+
+  - id: phoenix-channels
+    url: https://github.com/phoenixframework/phoenix/tree/main/lib/phoenix/channel
+    category: realtime
+    tech: phoenix
+    versions: ["main"]
+    source: official
+
+  - id: action-cable
+    url: https://github.com/rails/rails/tree/main/actioncable
+    category: realtime
+    tech: actioncable
+    versions: ["main"]
+    source: official
+
+  - id: pusher-channels
+    url: https://github.com/pusher/pusher-http-node
+    category: realtime
+    tech: pusher
+    versions: ["master"]
+    source: official
+
+  - id: ably-js
+    url: https://github.com/ably/ably-js
+    category: realtime
+    tech: ably
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # UTILITIES & HELPERS
+  # ============================================================================
+
+  - id: lodash
+    url: https://github.com/lodash/lodash
+    category: utilities
+    tech: lodash
+    versions: ["main"]
+    source: official
+
+  - id: ramda
+    url: https://github.com/ramda/ramda
+    category: utilities
+    tech: ramda
+    versions: ["master"]
+    source: official
+
+  - id: date-fns
+    url: https://github.com/date-fns/date-fns
+    category: utilities
+    tech: date-fns
+    versions: ["main"]
+    source: official
+
+  - id: dayjs
+    url: https://github.com/iamkun/dayjs
+    category: utilities
+    tech: dayjs
+    versions: ["dev"]
+    source: official
+
+  - id: luxon
+    url: https://github.com/moment/luxon
+    category: utilities
+    tech: luxon
+    versions: ["master"]
+    source: official
+
+  - id: axios
+    url: https://github.com/axios/axios
+    category: utilities
+    tech: axios
+    versions: ["v1.x"]
+    source: official
+
+  - id: undici
+    url: https://github.com/nodejs/undici
+    category: utilities
+    tech: undici
+    versions: ["main"]
+    source: official
+
+  - id: got
+    url: https://github.com/sindresorhus/got
+    category: utilities
+    tech: got
+    versions: ["main"]
+    source: official
+
+  - id: uuid
+    url: https://github.com/uuidjs/uuid
+    category: utilities
+    tech: uuid
+    versions: ["main"]
+    source: official
+
+  - id: nanoid
+    url: https://github.com/ai/nanoid
+    category: utilities
+    tech: nanoid
+    versions: ["main"]
+    source: official
+
+  - id: faker-js
+    url: https://github.com/faker-js/faker
+    category: utilities
+    tech: faker
+    versions: ["main"]
+    source: official
+
+  - id: immer
+    url: https://github.com/immerjs/immer
+    category: utilities
+    tech: immer
+    versions: ["main"]
+    source: official
+
+  - id: rx-js
+    url: https://github.com/ReactiveX/rxjs
+    category: utilities
+    tech: rxjs
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # DOCUMENTATION TOOLS
+  # ============================================================================
+
+  - id: docusaurus
+    url: https://github.com/facebook/docusaurus
+    category: documentation
+    tech: docusaurus
+    versions: ["main"]
+    source: official
+
+  - id: mkdocs
+    url: https://github.com/mkdocs/mkdocs
+    category: documentation
+    tech: mkdocs
+    versions: ["master"]
+    source: official
+
+  - id: mkdocs-material
+    url: https://github.com/squidfunk/mkdocs-material
+    category: documentation
+    tech: mkdocs
+    versions: ["master"]
+    source: official
+
+  - id: sphinx
+    url: https://github.com/sphinx-doc/sphinx
+    category: documentation
+    tech: sphinx
+    versions: ["master"]
+    source: official
+
+  - id: vitepress
+    url: https://github.com/vuejs/vitepress
+    category: documentation
+    tech: vitepress
+    versions: ["main"]
+    source: official
+
+  - id: typedoc
+    url: https://github.com/TypeStrong/typedoc
+    category: documentation
+    tech: typedoc
+    versions: ["master"]
+    source: official
+
+  - id: jsdoc
+    url: https://github.com/jsdoc/jsdoc
+    category: documentation
+    tech: jsdoc
+    versions: ["main"]
+    source: official
+
+  - id: redoc
+    url: https://github.com/Redocly/redoc
+    category: documentation
+    tech: redoc
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # CMS & HEADLESS CMS
+  # ============================================================================
+
+  - id: strapi
+    url: https://github.com/strapi/strapi
+    category: cms
+    tech: strapi
+    versions: ["main"]
+    source: official
+
+  - id: payload
+    url: https://github.com/payloadcms/payload
+    category: cms
+    tech: payload
+    versions: ["main"]
+    source: official
+
+  - id: directus
+    url: https://github.com/directus/directus
+    category: cms
+    tech: directus
+    versions: ["main"]
+    source: official
+
+  - id: sanity
+    url: https://github.com/sanity-io/sanity
+    category: cms
+    tech: sanity
+    versions: ["next"]
+    source: official
+
+  - id: ghost
+    url: https://github.com/TryGhost/Ghost
+    category: cms
+    tech: ghost
+    versions: ["main"]
+    source: official
+
+  - id: keystone
+    url: https://github.com/keystonejs/keystone
+    category: cms
+    tech: keystone
+    versions: ["main"]
+    source: official
+
+  # ============================================================================
+  # E-COMMERCE
+  # ============================================================================
+
+  - id: medusa
+    url: https://github.com/medusajs/medusa
+    category: ecommerce
+    tech: medusa
+    versions: ["develop"]
+    source: official
+
+  - id: saleor
+    url: https://github.com/saleor/saleor
+    category: ecommerce
+    tech: saleor
+    versions: ["main"]
+    source: official
+
+  - id: vendure
+    url: https://github.com/vendure-ecommerce/vendure
+    category: ecommerce
+    tech: vendure
+    versions: ["master"]
+    source: official
+
+  - id: shopify-api-js
+    url: https://github.com/Shopify/shopify-api-js
+    category: ecommerce
+    tech: shopify
+    versions: ["main"]
+    source: official
+
+  - id: woocommerce
+    url: https://github.com/woocommerce/woocommerce
+    category: ecommerce
+    tech: woocommerce
+    versions: ["trunk"]
+    source: official
+
+  # ============================================================================
+  # SERVICE MESH & NETWORKING
+  # ============================================================================
+
+  - id: istio
+    url: https://github.com/istio/istio
+    category: networking
+    tech: istio
+    versions: ["master"]
+    source: official
+
+  - id: envoy
+    url: https://github.com/envoyproxy/envoy
+    category: networking
+    tech: envoy
+    versions: ["main"]
+    source: official
+
+  - id: linkerd2
+    url: https://github.com/linkerd/linkerd2
+    category: networking
+    tech: linkerd
+    versions: ["main"]
+    source: official
+
+  - id: traefik
+    url: https://github.com/traefik/traefik
+    category: networking
+    tech: traefik
+    versions: ["master"]
+    source: official
+
+  - id: nginx
+    url: https://github.com/nginx/nginx
+    category: networking
+    tech: nginx
+    versions: ["master"]
+    source: official
+
+  - id: caddy
+    url: https://github.com/caddyserver/caddy
+    category: networking
+    tech: caddy
+    versions: ["master"]
+    source: official
+
+  - id: haproxy
+    url: https://github.com/haproxy/haproxy
+    category: networking
+    tech: haproxy
+    versions: ["master"]
+    source: official
+
+  - id: kong
+    url: https://github.com/Kong/kong
+    category: networking
+    tech: kong
+    versions: ["master"]
+    source: official
+
+  - id: apisix
+    url: https://github.com/apache/apisix
+    category: networking
+    tech: apisix
+    versions: ["master"]
+    source: official
+
+  # ============================================================================
+  # CACHING
+  # ============================================================================
+
+  - id: memcached
+    url: https://github.com/memcached/memcached
+    category: caching
+    tech: memcached
+    versions: ["master"]
+    source: official
+
+  - id: varnish-cache
+    url: https://github.com/varnishcache/varnish-cache
+    category: caching
+    tech: varnish
+    versions: ["master"]
+    source: official
+
+  - id: keydb
+    url: https://github.com/Snapchat/KeyDB
+    category: caching
+    tech: keydb
+    versions: ["FLASH"]
+    source: official
+
+  - id: dragonfly
+    url: https://github.com/dragonflydb/dragonfly
+    category: caching
+    tech: dragonfly
+    versions: ["main"]
+    source: official
